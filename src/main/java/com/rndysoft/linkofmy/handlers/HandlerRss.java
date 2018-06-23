@@ -26,7 +26,7 @@ public class HandlerRss implements Handler {
             List<FeedItem> items = getFeedItems(ctx);
             Map<String, FeedModel> out = new HashMap<>();
             out.put("feed", new FeedModel(items));
-            LOGGER.error("handle: attributes=%s", out);
+            LOGGER.error("handle: attributes={}", out);
             return out;
 
         }).onError(throwable -> {
