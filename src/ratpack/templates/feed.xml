@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="0.91">
+    <channel>
+        <title>My feed</title>
+        <description></description>
+        <link></link>
+        <% model.get("feed").items.each { item -> %>
+        <item>
+            <title>Item from ${item.timeAdded}</title>
+            <pubDate>${item.timeAdded}</pubDate>
+            <link>
+                <![CDATA[${item.link}]]></link>
+        </item>
+        <% } %>
+    </channel>
+</rss>
