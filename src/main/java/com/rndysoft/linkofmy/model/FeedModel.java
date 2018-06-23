@@ -12,4 +12,11 @@ public class FeedModel {
     public List<FeedItem> getItems() {
         return items;
     }
+
+    @Override
+    public String toString() {
+        return "FeedModel{" +
+                "items=" + items +
+                '}';
+    }
 }
