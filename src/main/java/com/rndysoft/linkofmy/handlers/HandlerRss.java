@@ -3,6 +3,7 @@ package com.rndysoft.linkofmy.handlers;
 import com.rndysoft.linkofmy.db.Schema;
 import com.rndysoft.linkofmy.model.FeedItem;
 import com.rndysoft.linkofmy.model.FeedModel;
+import org.slf4j.LoggerFactory;
 import ratpack.exec.Blocking;
 import ratpack.handling.Context;
 import ratpack.handling.Handler;
@@ -17,12 +18,15 @@ import java.util.*;
 import static ratpack.groovy.Groovy.groovyTemplate;
 
 public class HandlerRss implements Handler {
+    private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(HandlerRss.class);
+
     @Override
     public void handle(Context ctx) throws Exception {
         Blocking.get(() -> {
             List<FeedItem> items = getFeedItems(ctx);
             Map<String, FeedModel> out = new HashMap<>();
             out.put("feed", new FeedModel(items));
+            LOGGER.debug("handle: attributes=%s", out);
             return out;
 
         }).onError(throwable -> {
