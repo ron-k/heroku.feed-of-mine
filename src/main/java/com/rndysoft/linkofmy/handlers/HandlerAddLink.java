@@ -42,6 +42,7 @@ public class HandlerAddLink implements Handler {
                 ensureTableExists(connection);
                 PreparedStatement statement = connection.prepareStatement(String.format("INSERT INTO %s (%s) VALUES (?)", Schema.TABLE_LINKS, Schema.COLUMN_LINK));
                 statement.setString(1, link);
+                statement.execute();
                 return null;
             }
         }).onError(throwable -> {
