@@ -1,13 +1,11 @@
-import org.jscience.physics.amount.Amount;
-import org.jscience.physics.model.RelativisticModel;
 import ratpack.exec.Blocking;
 import ratpack.groovy.template.TextTemplateModule;
 import ratpack.guice.Guice;
 import ratpack.hikari.HikariModule;
+import ratpack.http.Headers;
 import ratpack.server.BaseDir;
 import ratpack.server.RatpackServer;
 
-import javax.measure.quantity.Mass;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,7 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static javax.measure.unit.SI.KILOGRAM;
 import static ratpack.groovy.Groovy.groovyTemplate;
 
 public class Main {
@@ -40,9 +37,8 @@ public class Main {
                         .get(ctx -> ctx.render(groovyTemplate("index.html")))
 
                         .get("hello", ctx -> {
-                            RelativisticModel.select();
-                            Amount<Mass> m = Amount.valueOf("12 GeV").to(KILOGRAM);
-                            ctx.render("E=mc^2: 12 GeV = " + m.toString());
+                            Headers headers = ctx.getRequest().getHeaders();
+                            ctx.render(headers.asMultiValueMap().toString());
                         })
 
                         .get("db", ctx -> {
