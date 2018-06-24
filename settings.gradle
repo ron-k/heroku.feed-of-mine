@@ -1,1 +1,5 @@
-rootProject.name = "gradle-getting-started"
+rootProject.name = "feed-of-mine"
+
+include 'model'
+include 'web'
+include 'dao'
